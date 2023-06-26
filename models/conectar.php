@@ -64,7 +64,26 @@ class Config{
     }
 
     //aqui recuperamos los datos/registros de la tabla
-
+    public function obtainAll(){
+        try {
+            $stm = $this->dbCnx->prepare("DELETE FROM * formulario");
+            $stm -> execute (); //ejecutar la sentencia
+            return $stm -> fetchAll();//retorna todos los resgitros de la tabla
+        } catch (\Exception $e) {
+            return $e -> getMessage();
+        }
+    }
+    //borrar los registros de la tabla
+    public function delete(){
+        try {
+            $stm = $this -> dbCnx -> prepare("DELETE FROM * campers WHERE id=?");//sentencia de borrar
+            $stm -> execute ([$this->id]);
+            return $stm -> fetchAll();
+            echo"<script>alert('Registro Eliminado'); document.location='index.php'</script>";
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 
 }
 
